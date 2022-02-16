@@ -1,4 +1,8 @@
 # OnlineShop
+Youtube: https://www.youtube.com/watch?v=WNE7-ig9TbE
+
+(If you do not have time to review the entire code for the project, above is a video where you can see the functionality and some parts of the page in action.)
+
 Full Stack application made in Node.js with Postgres database. The application is an online shop and is used to order, sell and promote various items.
 The task was to make an online shop with the specifications below. 
 I came up with the idea to make a shop as a shop for antique items and used the imagined theme and edited the css pages based on it.
