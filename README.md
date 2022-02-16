@@ -6,11 +6,13 @@ I came up with the idea to make a shop as a shop for antique items and used the 
 More detailed specifications
 
 Chief Administrator
+
 Possibility of archiving users (buyers and traders), and the possibility of blocking or blocking for a period of 15 days; This option works through the GUI, like everything else.
 Statistical module, showing the number of all users, the number of customers, shops, items, the number of orders with all items and present them in tabular and graphical form (graph);
 CRUD for all lookup tables (types of stores, items, etc.).
 
 Merchant
+
 Possibility of registration and login to the system;
 Ability to enter and edit trade data;
 Possibility of CRUD operations with individual items; It is useful to enter keywords / tags for items
@@ -22,6 +24,7 @@ Checking and recording orders. List of all orders with their status;
 Possibility to change the status (supplied).
 
 Buyer
+
 Possibility to log in and register on the system;
 When registering, the user's name, surname and e-mail must be entered;
 Enter a number of interests (services / products / product types) for the specified user; This string is entered during registration.
@@ -34,6 +37,7 @@ The customer has the ability to check the list of all their orders with their st
 but does not have the ability to edit the content.
 
 Additional requirements
+
 Merchant service evaluation. The buyer can leave a rating for each item. The popularity of an item depends on the average rating, as well as on the total number of orders of that item;
 Sorting and filtering items / services on the trader's profile, as well as on the front page;
 Three original additional specifications to be devised by the student.
