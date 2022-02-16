@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puk.ba</title>
+    <link rel='stylesheet' href='/stylesheets/adminStatistika.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@2.9.4"></script>
+    <script type="text/javascript" src="https://canvasjs.com/assets/script/jquery-1.11.1.min.js"></script>
+</head>
+<body class="vintageCover">
+<ul class="topnav">
+    <li><a  href="/admin/home">Pocetna</a></li>
+    <li><a href="/admin/crud">Artikli</a></li>
+    <li><a class="active" href="/admin/statistika">Statisticki modul</a></li>
+    <li class="right"><a href="/welcome">Log out</a></li>
+</ul>
+<div class="container">
+    <div class="box-1-naslov">Statisticki podaci za sistem</div>
+
+    <div class="box-2-grafik">
+        <div class="grafik">
+            <canvas id="myChart" width="400" height="400"></canvas>
+            <script>
+                var xValues = ["KORISNICI", "TRGOVINE", "KUPCI", "ARTIKLI","NARUDZBE"];
+                var yValues = [
+                    <%=parseInt(trgovine[0].trgovine) + parseInt(kupci[0].kupci)%>,
+                    <%=parseInt(trgovine[0].trgovine)%>,
+                    <%=parseInt(kupci[0].kupci)%>,
+                    <%=artikli[0].artikli%>,
+                    <%=narudzbe[0].narudzbe%>
+                ];
+                var barColors = ["#a77641", "#cd853f", "#b7936b", "#cd9355","#c19361"];
+
+                new Chart("myChart", {
+                    type: "bar",
+                    data: {
+                        labels: xValues,
+                        datasets: [{
+                            backgroundColor: barColors,
+                            data: yValues
+                        }]
+                    },
+                    options: {
+                        legend: {display: false},
+                        title: {
+                            display: true
+                        }
+                    }
+                });
+            </script>
+        </div>
+        <div class="statistika">
+            <div class="element">
+                <div class="element-elementa-gornji">Broj korisnika</div>
+                <div class="element-elementa-donji"><%=parseInt(trgovine[0].trgovine) + parseInt(kupci[0].kupci)%></div>
+            </div>
+            <div class="element">
+                <div class="element-elementa-gornji">Broj trgovaca</div>
+                <div class="element-elementa-donji"><%=trgovine[0].trgovine%></div>
+            </div>
+            <div class="element">
+                <div class="element-elementa-gornji">Broj kupaca</div>
+                <div class="element-elementa-donji"><%=kupci[0].kupci%></div>
+            </div>
+            <div class="element">
+                <div class="element-elementa-gornji">Broj artikala</div>
+                <div class="element-elementa-donji"><%=artikli[0].artikli%></div>
+            </div>
+            <div class="element">
+                <div class="element-elementa-gornji">Broj narudzbi</div>
+                <div class="element-elementa-donji"><%=narudzbe[0].narudzbe%></div>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+
+
+<!--
+<h1> STATISTIKA</h1>
+<br><br><br>
+<h4> Ukupni korisnici stranice</h4>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">Broj korisnika</th>
+        <th scope="col">Broj trgovaca</th>
+        <th scope="col">Broj kupaca</th>
+        <th scope="col">Broj artikala</th>
+        <th scope="col">Broj narudzbi</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr>
+        <td></%=parseInt(trgovine[0].trgovine) + parseInt(kupci[0].kupci)%/></td>
+        <td></%=trgovine[0].trgovine%/></td>
+        <td></%=kupci[0].kupci%/></td>
+        <td></%=artikli[0].artikli%/></td>
+        <td></%=narudzbe[0].narudzbe%/></td>
+    </tr>
+    </tbody>
+</table>
+<br><br>
+
+<canvas id="myChart" width="400" height="400"></canvas>
+<script>
+    var xValues = ["KORISNICI", "TRGOVINE", "KUPCI", "ARTIKLI","NARUDZBE"];
+    var yValues = [
+        </%=parseInt(trgovine[0].trgovine) + parseInt(kupci[0].kupci)%/>,
+        </%=parseInt(trgovine[0].trgovine)%/>,
+        </%=parseInt(kupci[0].kupci)%/>,
+        </%=artikli[0].artikli%/>,
+        </%=narudzbe[0].narudzbe%/>
+    ];
+    var barColors = ["#a77641", "#cd853f", "#b7936b", "#cd9355","#c19361"];
+
+    new Chart("myChart", {
+        type: "bar",
+        data: {
+            labels: xValues,
+            datasets: [{
+                backgroundColor: barColors,
+                data: yValues
+            }]
+        },
+        options: {
+            legend: {display: false},
+            title: {
+                display: true
+            }
+        }
+    });
+</script>
+-->

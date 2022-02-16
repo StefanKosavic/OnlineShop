@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Naruci artikal</title>
+    <link rel='stylesheet' href='/stylesheets/katalogArtikal.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function dodajUKorpu(id_artikla,id_trgovine){
+            $.ajax({
+                url:"/kupac/dodajUKorpu/" + id_artikla + "/" + id_trgovine,
+                data:{},
+                type:"post",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                console.log(data);
+                window.location.href="/kupac/home"
+            });
+        }
+
+        function spasi(id_artikla,id_trgovine){
+            $.ajax({
+                url:"/kupac/spasiArtikal/" + id_artikla + "/" + id_trgovine,
+                data:{},
+                type:"post",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                console.log(data);
+                window.location.href="/kupac/home"
+            });
+        }
+    </script>
+
+</head>
+<body class="vintageCover">
+<div class="product">
+    <div class="product-img">
+        <img src="/images/<%=artikal[0].slika%>">
+        <%if(artikal[0].izdvojen=='true'){%>
+            <span class="tag">Izdvojen</span>
+        <%}%>
+    </div>
+    <div class="product-listing">
+        <div class="content">
+            <h1 class="name"><%=artikal[0].naziv%></h1>
+            <p class="info"><%=artikal[0].opis%></p>
+            <p class="price"><%=artikal[0].cijena%></p>
+            <div class="btn-and-rating-box">
+                <button class="btn" onclick="spasi('<%=artikal[0].id_artikla%>','<%=id_trgovine%>')">Spasi artikal</button>
+                <button class="btn" onclick="dodajUKorpu('<%=artikal[0].id_artikla%>','<%=id_trgovine%>')">Dodaj u korpu</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+</body>
+</html>
+
+

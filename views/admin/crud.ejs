@@ -1,0 +1,299 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puk.ba</title>
+    <link rel='stylesheet' href='/stylesheets/adminCrud.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+
+        function dodajNovuKategoriju(){
+            naziv_kategorije = document.getElementById("naziv_kategorije").value;
+            $.ajax({
+                url:"/admin/crud/" + naziv_kategorije,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+        }
+
+        function updateKategoriju(id){
+            naziv_kategorije = document.getElementById("kategorija"+id).value;
+
+            $.ajax({
+                url:"/admin/updateKategoriju/" + naziv_kategorije + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+
+        function updateArtikal(id){
+            naziv_artikla = document.getElementById("naziv"+id).value;
+            opis_artikla = document.getElementById("opis"+id).value;
+            kategorija_artikla = document.getElementById("izbor" + id).value;
+            cijena_artikla = document.getElementById("cijena"+id).value;
+
+            $.ajax({
+                url:"/admin/updateArtikal/" + naziv_artikla + "/" + opis_artikla + "/" + kategorija_artikla + "/" + cijena_artikla + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+
+        function obrisiKategoriju(id){
+            $.ajax({
+                url:"/admin/deleteKategoriju/"  + id,
+                data:{},
+                type:"delete",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+
+        function obrisiArtikal(id){
+            $.ajax({
+                url:"/admin/deleteArtikal/"  + id,
+                data:{},
+                type:"delete",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+    </script>
+</head>
+<body class="vintageCover">
+<ul class="topnav">
+    <li><a href="/admin/home">Pocetna</a></li>
+    <li><a class="active" href="/admin/crud">Artikli</a></li>
+    <li><a href="/admin/statistika">Statisticki modul</a></li>
+    <li class="right"><a href="/welcome">Log out</a></li>
+</ul>
+
+<div class="container">
+    <div class="box-1-naslov">
+        <h3>Raspolozivi artikli na sistemu</h3>
+    </div>
+    <%for(let i=0;i<artikli.length;i++){ %>
+    <div class="box-2">
+        <div class="box-2-slika">
+            <img class="slika" src="../images/<%=artikli[i].slika%>" width=auto height=auto>
+        </div>
+        <div class="box-2-artikli">
+            <div class="box-2-elementi">
+                <div class="element"><input class="sirina-inputa" type="text" name="naziv" value="<%=artikli[i].naziv%>" id="naziv<%=artikli[i].id_artikla%>"></div>
+                <div class="element"><input class="sirina-inputa-opis" type="text" name="opis" value="<%=artikli[i].opis%>" id="opis<%=artikli[i].id_artikla%>"></div>
+                <div class="element">
+                    <select id="select" class="custom-select mr-sm-2">
+                        <option id="izbor<%=artikli[i].id_artikla%>"  value=<%= artikli[i].kategorija%>><%= artikli[i].kategorija%></option>
+                        <%for(let j=0;j<kategorije.length;j++){
+                        if(kategorije[j].naziv!=artikli[i].kategorije){%>
+                        <option id="izbor<%=artikli[j].id_artikla%>" value=<%= kategorije[j].naziv%>><%= kategorije[j].naziv%></option>
+                        <%}%>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="element"><input class="sirina-inputa" type="text" name="cijena" value="<%=artikli[i].cijena%>" id="cijena<%=artikli[i].id_artikla%>"></div>
+            </div>
+            <div class="box-2-buttoni">
+                <div class="element"><button type="button" class="btn-update" onclick="updateArtikal('<%=artikli[i].id_artikla%>')">Update</button></div>
+                <div class="element"><button type="button" class="btn-delete" onclick="obrisiArtikal('<%=artikli[i].id_artikla%>')">Obrisi</button></div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+    <div class="box-1-naslov">
+        <h3>Dodaj novi artikal na sistem </h3>
+    </div>
+    <div class="input-noviArtikal">
+        <form method="post" action="/admin/dodajArtikal" enctype="multipart/form-data">
+            <div class="form__group">
+                <input type="text" class="form__input" name="naziv" placeholder="Naziv artikla" required="" />
+            </div>
+            <div class="form__group">
+                <input type="text" class="form__input" name="opis" placeholder="Opis artikla" required="" />
+            </div>
+            <div class="form__group">
+                <input type="text" class="form__input" name="cijena" placeholder="Cijena artikla" required="" />
+            </div>
+            <div class="form__group">
+                <select class="custom-select mr-sm-2" name="kategorija">
+                    <%for(let i=0;i<kategorije.length;i++){%>
+                        <option value=<%= kategorije[i].naziv%>><%= kategorije[i].naziv%></option>
+                    <%}%>
+                </select>
+            </div>
+            <div class="form__group">
+                <select class="custom-select mr-sm-2" name="trgovina">
+                    <%for(let i=0;i<trgovine.length;i++){%>
+                        <option value=<%= trgovine[i].id_trgovine%>><%= trgovine[i].naziv%></option>
+                    <%}%>
+                </select>
+            </div>
+            <div class="form__group">
+                <input class="input-slika" name="sampleFile" type="file" accept="image/*"/>
+            </div>
+            <div class="form__group">
+                <button class="btn-dodajArtikal" type="submit" >Dodaj artikal</button>
+            </div>
+        </form>
+    </div>
+    <div class="box-1-naslov">
+        <h3>Raspolozivi kategorije artikala na sistemu</h3>
+    </div>
+    <%for(let i=0;i<kategorije.length;i++){%>
+        <div class="box-2-kategorije">
+            <div class="box-2-artikli">
+                <div class="box-2-elementi">
+                    <div class="element"><input class="sirina-inputa" type="text" name="kategorija" value="<%=kategorije[i].naziv%>" id="naziv<%=kategorije[i].id_kategorije%>"></div>
+                </div>
+                <div class="box-2-buttoni">
+                    <div class="element"><button type="button" class="btn-update-kategorija" onclick="updateKategoriju('<%=kategorije[i].id_kategorije%>')">Update</button></div>
+                    <div class="element"><button type="button" class="btn-delete-kategorija" onclick="obrisiKategoriju('<%=kategorije[i].id_kategorije%>')">Obrisi</button></div>
+                </div>
+            </div>
+        </div>
+    <%}%>
+    <div class="box-1-naslov">
+        <h3>Dodaj novu kategoriju </h3>
+    </div>
+    <div class="input-noviArtikal-kategorija">
+            <div class="form__group">
+                <input type="text"  id="naziv_kategorije" class="form__input"  placeholder="Dodaj novu kategoriju" required="" />
+            </div>
+            <div class="form__group">
+                <button class="btn-dodajArtikal-kategorija" type="button" onclick="dodajNovuKategoriju()">Dodaj kategoriju</button>
+            </div>
+    </div>
+</div>
+
+</body>
+</html>
+
+
+<!--
+<h1>Raspolozivi artikli na sistemu</h1>
+<br>
+
+<table class="table table-dark">
+    <thead>
+
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv artikla</th>
+        <th scope="col">Opis artikla</th>
+        <th scope="col">Kategorija</th>
+        <th scope="col">Cijena</th>
+    </tr>
+    </thead>
+    <tbody>
+    <//%for(let i=0;i<artikli.length;i++){ brojac=0;%/>
+
+
+    <tr>
+        <th scope="row"></%=i+1%/></th>
+        <td><input type="text" name="naziv" value="</%=artikli[i].naziv%/>" id="naziv</%=artikli[i].id_artikla%/>"></td>
+        <td><input type="text" name="opis" value="</%=artikli[i].opis%/>" id="opis</%=artikli[i].id_artikla%/>"></td>
+        <td>
+            <select class="custom-select mr-sm-2">
+                <option id="izbor</%=artikli[i].id_artikla%/>"  value=</%= artikli[i].kategorija%/>></%= artikli[i].kategorija%/></option>
+                </%for(let j=0;j<kategorije.length;j++){
+if(kategorije[j].naziv!=artikli[i].kategorije){%/>
+                        <option id="izbor</%=kategorije[j].kategorija%/>" value=</%= kategorije[j].naziv%/>></%= kategorije[j].naziv%/></option>
+                    </%/}%/>
+                </%}%/>
+            </select>
+        </td>
+        <td><input type="text" name="cijena" value="</%=artikli[i].cijena%/>" id="cijena</%=artikli[i].id_artikla%/>"></td>
+
+        <td><button type="button" class="btn btn-warning" onclick="updateArtikal('</%=artikli[i].id_artikla%/>')">Update</button></td>
+        <td><button type="button" class="btn btn-danger" onclick="obrisiArtikal('</%=artikli[i].id_artikla%/>')">Obrisi</button></td>
+    </tr>
+
+    </%brojac++}%/>
+    </tbody>
+</table>
+<br>
+
+<h1>Dodaj novi artikal</h1>
+<br>
+<form action="/admin/dodajArtikal" method="post" enctype="multipart/form-data">
+    <div class="row">
+        <div class="col">
+            <label for="naziv">Naziv artikla</label>
+            <input type="text" name="naziv" class="form-control" style="width: 100%;"> <br>
+            <label for="opis">Opis artikla</label>
+            <textarea  name="opis" class="form-control" style="width: 100%;"> </textarea> <br>
+            <label for="kategorija">Kategorija</label>
+            <select name="kategorija" class="form-control" style="width: 100%;">
+                </%for(let i = 0; i < kategorije.length; i++) {%/>
+                    <option  name="kategorija">
+                        </%= kategorije[i].naziv%/>
+                    </option>
+                </%}%/>
+            </select> <br>
+            <label for="cijena">Cijena artikla</label>
+            <input type="text" name="cijena" class="form-control" style="width: 100%;"> <br>
+            <label for="slike">Slike</label> <br>
+            <input type="file" name="slike" class="form-control form-control-sm" accept="image/*"  style="width: 100%;" multiple> <br> <br>
+            <input type="submit" value="Dodaj artikal" class="btn btn-info" style="background-color: #294553">
+        </div>
+    </div>
+</form>
+<br>
+
+<h1>Raspolozive kategorije proizvoda</h1>
+<br>
+<table class="table table-dark">
+    <thead>
+
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv kategorije</th>
+    </tr>
+    </thead>
+    <tbody>
+    </%for(let i=0;i<kategorije.length;i++){%/>
+    <tr>
+        <th scope="row"></%=i+1%/></th>
+        <td><input type="text" value="</%=kategorije[i].naziv%/>" id="kategorija</%=kategorije[i].id_kategorije%/>" name="kategorija" ></td>
+        <td><button type="button" class="btn btn-warning" onclick="updateKategoriju('</%=kategorije[i].id_kategorije%/>')">Update</button></td>
+        <td><button type="button" class="btn btn-danger" onclick="obrisiKategoriju('</%=kategorije[i].id_kategorije%/>')">Delete</button></td>
+        </%}%/>
+
+
+    </tbody>
+</table>
+
+
+
+
+<br><br>
+<h1>Dodaj novu kategoriju</h1>
+<br>
+<form>
+    <div class="form-group">
+        <label>Naziv kategorije</label>
+        <input type="text" class="form-control" id="naziv_kategorije" placeholder="Dodajte novu kategoriju proizvoda">
+    </div>
+    <button type="submit" class="btn btn-info" onclick="dodajNovuKategoriju()">Dodaj kategoriju</button>
+</form>
+<br><br>-->

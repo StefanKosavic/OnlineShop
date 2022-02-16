@@ -1,0 +1,93 @@
+body {
+    font-family: "Times New Roman", Georgia, serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+
+.vintageCover{
+    background-image: url("../images/strana.jpg");
+}
+.container-1{
+    display: flex;
+    flex-direction: column;
+    margin: 2% 2%;
+    background: #ebce6f;
+    border: 1px solid black;
+    border-radius: 20px;
+    filter: drop-shadow(0px 5px 3px black);
+}
+.box-1{
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 2%;
+}
+.box-1a{
+    flex: 1;
+    display: flex;
+    flex-direction: row;
+    border-radius: 20px;
+    filter: drop-shadow(0px 3px 1px black);
+    margin: 1%;
+    background: white;
+    border: 1px solid black;
+}
+.box-1a-1-slika{
+    flex: 1;
+    margin: 1%;
+}
+.box-1a-1{
+    flex: 1;
+    text-align: center;
+    margin: 5% 1% 1% 1%;
+}
+
+h4{
+    margin: 0% 0% 0% 33%;
+}
+.slika{
+    border-radius: 7px;
+}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+    filter: drop-shadow(0px 4px 2px black);
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 6px 9px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #d6b261;}
+
+ul.topnav li a.active {background-color: #d6b261;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right,
+    ul.topnav li {float: none;}
+}
+
+
+
+
+
+
+
+
+
+

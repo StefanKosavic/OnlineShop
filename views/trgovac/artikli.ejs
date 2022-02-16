@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puk.ba</title>
+    <link href="https://fonts.googleapis.com/css?family=Roboto" rel="stylesheet">
+    <link rel='stylesheet' href='/stylesheets/trgovacArtikli.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function updateArtikal(id){
+
+            naziv_artikla = document.getElementById("naziv"+id).value;
+            opis_artikla = document.getElementById("opis"+id).value;
+            kategorija_artikla = document.getElementById("izbor" + id).value;
+            cijena_artikla = document.getElementById("cijena"+id).value;
+            alert(kategorija_artikla);
+
+            $.ajax({
+                url:"/trgovac/updateArtikal/" + naziv_artikla + "/" + opis_artikla + "/" + kategorija_artikla + "/" + cijena_artikla + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+        function obrisiArtikal(id){
+            $.ajax({
+                url:"/trgovac/deleteArtikal/"  + id,
+                data:{},
+                type:"delete",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+        function dodajUKatalog(id){
+            vrijednost = 'true';
+            $.ajax({
+                url:"/trgovac/dodajUKatalog/" + vrijednost + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+        }
+
+        function izbaciIzKataloga(id){
+            vrijednost = 'false';
+            $.ajax({
+                url:"/trgovac/izbaciIzKataloga/" + vrijednost + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+        }
+
+        function izdvoji(id){
+            vrijednost = 'true';
+            $.ajax({
+                url:"/trgovac/izdvoji/" + vrijednost + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+        }
+
+        function promocija(id){
+            vrijednost = 'false';
+            $.ajax({
+                url:"/trgovac/promocija/" + vrijednost + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+        }
+    </script>
+
+</head>
+<body class="vintageCover">
+<ul class="topnav">
+    <li><a href="/trgovac/urediPodatke">Pocetna</a></li>
+    <li><a  class="active" href="/trgovac/artikli">Artikli</a></li>
+    <li><a href="/trgovac/katalog">Katalog</a></li>
+    <li><a href="/trgovac/narudzbe">Narudzbe</a></li>
+    <li class="right"><a href="/welcome">Log out</a></li>
+</ul>
+
+
+<div class="container">
+    <div class="box-1-naslov">
+        <h3>Raspolozivi artikli za <%=naziv%> trgovinu</h3>
+    </div>
+    <%for(let i=0;i<artikli.length;i++){ %>
+        <div class="box-2">
+            <div class="box-2-slika">
+                <img class="slika" src="../images/<%=artikli[i].slika%>">
+            </div>
+            <div class="box-2-artikli">
+                <div class="box-2-elementi">
+                    <div class="element"><input class="sirina-inputa" type="text" name="naziv" value="<%=artikli[i].naziv%>" id="naziv<%=artikli[i].id_artikla%>"></div>
+                    <div class="element"><input class="sirina-inputa-opis" type="text" name="opis" value="<%=artikli[i].opis%>" id="opis<%=artikli[i].id_artikla%>"></div>
+                    <div class="element">
+                        <select class="custom-select mr-sm-2">
+                            <option id="izbor<%=artikli[i].id_artikla%>"  value=<%= artikli[i].kategorija%>><%= artikli[i].kategorija%></option>
+                            <%for(let j=0;j<kategorije.length;j++){
+                                if(kategorije[j].naziv!=artikli[i].kategorije){%>
+                                    <option id="izbor<%=kategorije[j].kategorija%>" value=<%= kategorije[j].naziv%>><%= kategorije[j].naziv%></option>
+                                <%}%>
+                            <%}%>
+                        </select>
+                    </div>
+                    <div class="element"><input class="sirina-inputa" type="text" name="cijena" value="<%=artikli[i].cijena%>" id="cijena<%=artikli[i].id_artikla%>"></div>
+                </div>
+                <div class="box-2-buttoni">
+                    <%if(artikli[i].katalog == 'false'){%>
+                        <div class="element"><button type="button" class="btn-katalog" onclick="dodajUKatalog('<%=artikli[i].id_artikla%>')">Dodaj u katalog</button></div>
+                    <%}else{%>
+                    <div class="element"><button type="button" class="btn-katalogIzbaci" onclick="izbaciIzKataloga('<%=artikli[i].id_artikla%>')">Izbaci iz kataloga</button></div>
+                    <%}%>
+                    <%if(artikli[i].izdvojen == 'true'){%>
+                        <div class="element"><button type="button" class="btn-izdvoji" onclick="promocija('<%=artikli[i].id_artikla%>')">Promocija</button></div>
+                    <%}else{%>
+                        <div class="element"><button type="button" class="btn-izdvoji" onclick="izdvoji('<%=artikli[i].id_artikla%>')">Izdvoji</button></div>
+                    <%}%>
+                    <div class="element"><button type="button" class="btn-update" onclick="updateArtikal('<%=artikli[i].id_artikla%>')">Update</button></div>
+                    <div class="element"><button type="button" class="btn-delete" onclick="obrisiArtikal('<%=artikli[i].id_artikla%>')">Obrisi</button></div>
+                </div>
+            </div>
+        </div>
+    <%}%>
+    <div class="box-1-naslov">
+        <h3>Dodaj novi artikal za <%=naziv%> </h3>
+    </div>
+    <div class="input-noviArtikal">
+        <form method="post" action="/trgovac/artikli" enctype="multipart/form-data">
+            <div class="form__group">
+                <input type="text" class="form__input" name="naziv" placeholder="Naziv artikla" required="" />
+            </div>
+            <div class="form__group">
+                <input type="text" class="form__input" name="opis" placeholder="Opis artikla" required="" />
+            </div>
+            <div class="form__group">
+                <input type="text" class="form__input" name="cijena" placeholder="Cijena artikla" required="" />
+            </div>
+            <div class="form__group">
+                <select class="custom-select mr-sm-2" name="kategorija">
+                    <%for(let i=0;i<kategorije.length;i++){%>
+                        <option value=<%= kategorije[i].naziv%>><%= kategorije[i].naziv%></option>
+                    <%}%>
+                </select>
+            </div>
+            <div class="form__group">
+                <input class="input-slika" name="sampleFile" type="file" accept="image/*"/>
+            </div>
+            <div class="form__group">
+                <button class="btn-dodajArtikal" type="submit" >Dodaj artikal</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+
+</body>
+</html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!--
+
+<h1></%=naziv%/></h1>
+<br><br>
+
+<h3>Raspolozivi artikli za </%=naziv%/> trgovinu</h3>
+<br>
+
+<div class="dropdown">
+    <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+        Sort by
+    </button>
+    <div class="dropdown-menu" aria-labelledby="dropdownMenu2">
+        <button class="dropdown-item" type="button" onclick="orderByArtikal()">Naziv artikla</button>
+        <button class="dropdown-item" type="button" onclick="orderByKategorija()">Kategorija artikla</button>
+        <button class="dropdown-item" type="button" onclick="orderByCijena()">Cijena artikla</button>
+    </div>
+</div>
+
+<br>
+<table class="table table-dark">
+    <thead>
+
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv artikla</th>
+        <th scope="col">Opis artikla</th>
+        <th scope="col">Kategorija</th>
+        <th scope="col">Cijena</th>
+    </tr>
+    </thead>
+    <tbody>
+    </%for(let i=0;i<artikli.length;i++){ %/>
+    <tr>
+
+        <th scope="row"></%=i+1%/></th>
+        <td><input type="text" name="naziv" value="</%=artikli[i].naziv%/>" id="naziv</%=artikli[i].id_artikla%/>"></td>
+        <td><input type="text" name="opis" value="</%=artikli[i].opis%/>" id="opis</%=artikli[i].id_artikla%/>"></td>
+        <td>
+            <select class="custom-select mr-sm-2">
+                <option id="izbor</%=artikli[i].id_artikla%/>"  value=</%= artikli[i].kategorija%/>></%= artikli[i].kategorija%/></option>
+                </%for(let j=0;j<kategorije.length;j++){
+                if(kategorije[j].naziv!=artikli[i].kategorije){%/>
+                <option id="izbor</%=kategorije[j].kategorija%/>" value=</%= kategorije[j].naziv%/>></%= kategorije[j].naziv%/></option>
+                </%}%/>
+                </%}%/>
+            </select>
+        </td>
+        <td><input type="text" name="cijena" value="</%=artikli[i].cijena%/>" id="cijena</%=artikli[i].id_artikla%/>"></td>
+
+        <td><button type="button" class="btn btn-warning" onclick="updateArtikal('</%=artikli[i].id_artikla%/>')">Update</button></td>
+        <td><button type="button" class="btn btn-danger" onclick="obrisiArtikal('</%=artikli[i].id_artikla%/>')">Obrisi</button></td>
+        </%if(artikli[i].katalog == 'false'){%/>
+        <td><button type="button" class="btn btn-info" onclick="dodajUKatalog('</%=artikli[i].id_artikla%/>')">Dodaj u katalog</button></td>
+        </%}else{%/>
+        <td><button type="button" class="btn btn-primary" onclick="izbaciIzKataloga('</%=artikli[i].id_artikla%/>')">Izbaci iz kataloga</button></td>
+        </%}%/>
+        </%if(artikli[i].izdvojen == 'true'){%/>
+            <td>Izdvojen</td>
+        </%}else{%/>
+        <td><button type="button" class="btn btn-success" onclick="izdvoji('</%=artikli[i].id_artikla%/>')">Izdvoji</button></td>
+        </%}%/>
+    </tr>
+
+    </%}%/>
+    </tbody>
+</table>
+<br>
+
+<h3>Dodaj novi artikal</h3>
+<br>
+<form>
+    <div class="form-group">
+        <label>Naziv artikla</label>
+        <input type="text" class="form-control" id="naziv" placeholder="Unesite naziv artikla">
+    </div>
+    <div class="form-group">
+        <label>Opis</label>
+        <input type="text" class="form-control" id="opis" placeholder="Unesite opis artikla">
+    </div>
+    <div class="form-group">
+        <label>Cijena</label>
+        <input type="text" class="form-control" id="cijena" placeholder="Cijena artikla">
+    </div>
+    <div class="form-group">
+        <label>Kategorija</label>
+        <select class="custom-select mr-sm-2" id="kategorija">
+            </%for(let i=0;i<kategorije.length;i++){%/>
+                <option value=</%= kategorije[i].naziv%/>></%= kategorije[i].naziv%/></option>
+            </%}%/>
+        </select>
+    </div>
+    <button type="submit" class="btn btn-info" onclick="dodajNoviArtikal()">Dodaj artikal</button>
+</form>
+<br>-->
+

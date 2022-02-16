@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puk.ba</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel='stylesheet' href='/stylesheets/adminCrud.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function pronadjiArtikal(){
+
+            let nazivArtikla = document.getElementById("nazivArtikla").value;
+            console.log(nazivArtikla);
+            $.ajax({
+                url:"/kupac/artikli/nazivArtikla/" + nazivArtikla,
+                data:{},
+                type:"get",
+            }).done(function (data){
+                console.log(data);
+                window.location.href="/kupac/artikli/nazivArtikla/" + nazivArtikla;
+            });
+        }
+
+        function pronadjiTrgovinu(){
+
+            let nazivTrgovine = document.getElementById("nazivTrgovine").value;
+            $.ajax({
+                url:"/kupac/trgovine/nazivTrgovine/" + nazivTrgovine,
+                data:{},
+                type:"get",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                console.log(data);
+                window.location.href="/kupac/trgovine/nazivTrgovine/" + nazivTrgovine;
+            });
+        }
+
+        function ocjeniArtikal(id){
+
+            let ocjena = document.getElementById("ocjena"+id).value;
+            console.info("Ovo je ocjenaa " + ocjena);
+            alert(ocjena);
+            $.ajax({
+                url:"/kupac/ocjenaArtikla/" + ocjena + "/" + id,
+                data:{},
+                type:"post",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                console.log(data);
+            });
+        }
+
+        function dodajUKorpu(id_artikla,id_trgovine){
+            $.ajax({
+
+                url:"/kupac/dodajUKorpu/" + id_artikla + "/" + id_trgovine,
+                data:{},
+                type:"post",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                console.log(data);
+                window.location.reload();
+            });
+        }
+
+        function korpa(){
+            $.ajax({
+                url:"/kupac/korpa/artikli",
+                data:{},
+                type:"get",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                console.log(data);
+                window.location.href="/kupac/korpa/artikli"
+
+            });
+        }
+
+        function wishList(){
+            $.ajax({
+                url:"/kupac/wishList",
+                data:{},
+                type:"get",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                console.log(data);
+                window.location.href="/kupac/wishList"
+            });
+        }
+    </script>
+</head>
+
+<body class="vintageCover">
+<ul class="topnav">
+    <li><a class="active" href="/kupac/home">Pocetna</a></li>
+    <li><a  href="/kupac/narudzbe">Narudzbe</a></li>
+    <li>
+        <input class="moj-input" type="text" placeholder="Pretrazi artikal" id="nazivArtikla">
+    </li>
+    <li>
+        <button type="submit" class="btn-search" onclick="pronadjiArtikal()">Pronađi</button>
+    </li>
+    <li>
+        <input class="moj-input-2" type="text" placeholder="Pretrazi trgovinu" id="nazivTrgovine">
+    </li>
+    <li>
+        <button class="btn-search-2" type="submit" onclick="pronadjiTrgovinu()">Pronađi</button>
+    </li>
+    <li class="right"><a href="/welcome">Log out</a></li>
+    <li class="right"><a href="/kupac/korpa/artikli">Korpa</a></li>
+    <li class="right"><a href="/kupac/wishList">Wish List</a></li>
+
+
+</ul>
+<div class="container">
+    <div class="box-1-naslov">
+        <h2>Dobro dosli <%=imeKupca%></h2>
+    </div>
+    <div class="box-1-naslov">
+        <h5>Iz ponude izdvajamo</h5>
+    </div>
+    <%for(let i=0;i<sve.length;i++){ %>
+    <div class="box-2-kupac">
+        <div class="box-2-slika">
+            <img class="slika" src="/images/<%=sve[i].slika%>">
+        </div>
+        <div class="box-2-artikli">
+            <div class="box-2-elementi">
+                <div class="element"><%=sve[i].naziv_artikla%></div>
+                <div class="element"><%=sve[i].naziv%></div>
+                <div class="element"><%=sve[i].kategorija%></div>
+                <div class="element"><%=sve[i].opis%></div>
+                <div class="element"><%=sve[i].cijena%></div>
+            </div>
+            <div class="box-2-buttoni">
+                <div class="element">
+                    <select class="form-control" id="ocjena<%=sve[i].id_artikla%>">
+                        <option value="1">1</option>
+                        <option value="2">2</option>
+                        <option value="3">3</option>
+                        <option value="4">4</option>
+                        <option value="5">5</option>
+                    </select>
+                </div>
+                <div class="element"><button type="button" class="btn-ocijeni" onclick="ocjeniArtikal('<%=sve[i].id_artikla%>')">Ocjeni</button></div>
+                <div class="element"><button type="button" class="btn-ocijeni" onclick="dodajUKorpu('<%=sve[i].id_artikla%>','<%=sve[i].id_trgovine%>')">Dodaj u korpu</button></div>
+            </div>
+        </div>
+    </div>
+    <%}%>
+</div>
+
+</body>
+
+</html>
+
+
+<!--<body>
+
+<ul class="topnav">
+    <li><a class="active" href="/kupac/home">Pocetna</a></li>
+    <li>
+        <input class="form-control mr-sm-2" type="text" placeholder="Pretrazi artikal" id="nazivArtikla">
+    </li>
+    <li>
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" onclick="pronadjiArtikal()">Pronađi</button>
+    </li>
+    <li>
+        <input class="form-control mr-sm-2" type="text" placeholder="Pretrazi trgovinu" id="nazivTrgovine">
+    </li>
+    <li>
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" onclick="pronadjiTrgovinu()">Pronađi</button>
+    </li>
+    <li class="right"><a href="#/welcome">Log out</a></li>
+    <li class="right"><a href="/kupac/korpa/artikli">Korpa</a></li>
+    <li class="right"><a href="/kupac/wishList">Wish List</a></li>
+
+
+</ul>
+
+
+<br>
+<h1> Dobro dosli </%=imeKupca%/></h1>
+<br>
+<h3> Iz ponude izdvajamo </h3>
+
+<table class="table">
+    <thead>
+
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv artikla</th>
+        <th scope="col">Naziv trgovine</th>
+        <th scope="col">Kategorija</th>
+        <th scope="col">Opis artikla</th>
+        <th scope="col">Cijena artikla</th>
+        <th scope="col">Adresa trgovine</th>
+        <th scope="col">Ocjeni artikal</th>
+    </tr>
+    </thead>
+    <tbody>
+    </%for(let i=0;i<sve.length;i++){%/>
+    <tr>
+        <th scope="row"></%=i+1%/></th>
+        <td></%=sve[i].naziv_artikla%/></td>
+        <td></%=sve[i].naziv%/></td>
+        <td></%=sve[i].kategorija%/></td>
+        <td></%=sve[i].opis%/></td>
+        <td></%=sve[i].cijena%/></td>
+        <td></%=sve[i].adresa%/></td>
+
+        <td>
+            <select class="form-control" id="ocjena</%=sve[i].id_artikla%/>">
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4</option>
+                <option value="5">5</option>
+            </select>
+        </td>
+        <td><button type="button" class="btn btn-info" onclick="ocjeniArtikal('</%=sve[i].id_artikla%/>')">Ocjeni</button></td>
+        <td><button type="button" class="btn btn-info" onclick="dodajUKorpu('</%=sve[i].id_artikla%/>','</%=sve[i].id_trgovine%/>')">Dodaj u korpu</button></td>
+    </tr>
+    </%}%/>
+    </tbody>
+</table>
+
+
+</body-->
+
+
+<!--<nav class="navbar navbar-light bg-light justify-content-between">
+    <a class="navbar-brand">Puk.ba</a>
+    <button type="button" class="btn btn-secondary" onclick="korpa()">korpa</button>
+    <button type="button" class="btn btn-secondary" onclick="wishList()">Wish List</button>
+    <form class="form-inline">
+        <input class="form-control mr-sm-2" type="text" placeholder="Pretrazi artikal" id="nazivArtikla">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" onclick="pronadjiArtikal()">Pronađi</button>
+
+        <input class="form-control mr-sm-2" type="text" placeholder="Pretrazi trgovinu" id="nazivTrgovine">
+        <button class="btn btn-outline-info my-2 my-sm-0" type="submit" onclick="pronadjiTrgovinu()">Pronađi</button>
+    </form>
+</nav>-->

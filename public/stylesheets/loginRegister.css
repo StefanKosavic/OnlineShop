@@ -1,0 +1,74 @@
+body {
+    font-family: "Times New Roman", Georgia, serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.vintageCover{
+    background-image: url("../images/vintageBACK.jpg");
+}
+.container-1{
+    height: 93vh;
+    display: flex;
+    margin: 2% 5%;
+    background: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    filter: drop-shadow(0px 5px 3px black);
+}
+.container-1-reverse{
+    flex-direction: row-reverse;
+    height: 93vh;
+    display: flex;
+    margin: 2% 5%;
+    background: white;
+    border: 1px solid black;
+    border-radius: 20px;
+    filter: drop-shadow(0px 5px 3px black);
+}
+.box-1{
+    flex: 1;
+    margin: 3% 1% 3% 5%;
+
+}
+.box-1-reverse{
+    flex: 1;
+    margin: 3% 5% 3% 1%;
+
+}
+.box-2{
+    flex: 1;
+    display: flex;
+    margin: 3%;
+    border: 1px solid black;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+.oldSHOP2{
+    height:100%;
+    width: 100%;
+    border-radius: 20px;
+    filter: drop-shadow(0px 10px 5px black);
+}
+.forma{
+    margin: 8vh 10vh 10vh 10vh;
+}
+.marginica{
+    margin: 8%;
+}
+.marginica-reverse{
+    margin: 8% 0% 8% 0%;
+}
+button{
+    background: #95642a !important;
+}
+
+
+
+
+
+

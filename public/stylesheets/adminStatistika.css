@@ -1,0 +1,101 @@
+body {
+    font-family: "Times New Roman", Georgia, serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.vintageCover{
+    background-image: url("../images/strana.jpg");
+}
+.container{
+    display: flex;
+    flex-direction: column;
+    margin: 2% 7% !important;
+    border: 1px solid black;
+    border-radius: 20px;
+    filter: drop-shadow(0px 9px 5px black);
+    background-image: url("../images/vintageBACK.jpg");
+}
+.box-2-grafik{
+    display: flex;
+    flex-direction: row;
+    border: 1px solid black;
+    border-radius: 20px;
+    margin: 1.5%;
+    background-color: white;
+}
+.grafik{
+    flex: 1;
+    margin: 2%;
+    border: 1px solid black;
+    border-radius: 20px;
+}
+.statistika{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 2%;
+    border: 1px solid black;
+    border-radius: 20px;
+    text-align: center;
+    background: #ffecb3;
+}
+.element{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+    margin: 1%;
+}
+.element-elementa-gornji{
+    flex: 1;
+    margin: 1% 1% 1% 1%;
+    font-size: 22px;
+    color: black;
+}
+.element-elementa-donji{
+    flex: 1;
+    margin: 1% 1% 1% 1%;
+    font-size: 18px;
+    color: #555555;
+}
+canvas{
+    width: 400px !important;
+    height: 400px !important;
+}
+.box-1-naslov{
+    flex: 1;
+    margin: 1.5% 1.5% 0% 1.5%;
+    text-align: center;
+    font-size: 28px;
+}
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+    filter: drop-shadow(0px 4px 2px black);
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 6px 9px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #d6b261;}
+
+ul.topnav li a.active {background-color: #d6b261;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right,
+    ul.topnav li {float: none;}
+}

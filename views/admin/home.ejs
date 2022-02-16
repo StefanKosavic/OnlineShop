@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puk.ba</title>
+    <link rel='stylesheet' href='/stylesheets/adminHome.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function blokiraj1(id){
+            let status = 'blokiran';
+            $.ajax({
+                url:"/admin/home/trgovine/" + status + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+
+        }
+        function blokiraj2(id){
+            let status = 'blokiran';
+            $.ajax({
+                url:"/admin/home/kupci/" + status + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+
+        }
+
+        function obrisi1(id){
+            $.ajax({
+                url:"/admin/home/trgovine/"+ id,
+                data:{},
+                type:"delete",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+
+        }
+
+        function obrisi2(id){
+            $.ajax({
+                url:"/admin/home/kupci/"+ id,
+                data:{},
+                type:"delete",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+
+            });
+        }
+
+
+    </script>
+
+</head>
+<body class="vintageCover">
+<ul class="topnav">
+    <li><a class="active" href="/admin/home">Pocetna</a></li>
+    <li><a href="/admin/crud">Artikli</a></li>
+    <li><a href="/admin/statistika">Statisticki modul</a></li>
+    <li class="right"><a href="/welcome">Log out</a></li>
+</ul>
+
+    <div class="container-1">
+        <h4>Raspolozive trgovine na sistemu</h4>
+        <div class="box-1">
+            <%for(let i=0;i<trgovine.length;i++){%>
+                <div class="box-1a">
+                    <div class="box-1a-1-slika"><img class="slika" src="../images/<%=trgovine[i].slika%>" height="70px" width="100px"></div>
+                    <div class="box-1a-1"><span><%=trgovine[i].naziv%></span></div>
+                    <div class="box-1a-1"><span><%=trgovine[i].kategorija%></span></div>
+                    <div class="box-1a-1"><span><%=trgovine[i].username%></span></div>
+                    <div class="box-1a-1"><span><%=trgovine[i].email%></span></div>
+                    <div class="box-1a-1"><span><%=trgovine[i].telefon%></span></div>
+                    <div class="box-1a-1"><span><%=trgovine[i].grad%></span></div>
+                    <div class="box-1a-1"><span> <button type="button" class="btn btn-warning" onclick="blokiraj1('<%=trgovine[i].id_trgovine%>')">Blokiraj</button></span></div>
+                    <div class="box-1a-1"><span> <button type="button" class="btn btn-danger" onclick="obrisi1('<%=trgovine[i].id_trgovine%>')">Arhivraj</button></span></div>
+                </div>
+            <%}%>
+
+        </div>
+        <div class="box-1">
+            <h4>Raspolozivi kupci na sistemu</h4>
+            <div class="box-1">
+                <%for(let i=0;i<kupci.length;i++){%>
+                <div class="box-1a">
+                    <div class="box-1a-1-slika"><img class="slika" src="../images/<%=kupci[i].slika%>" height="120px" width="160px"></div>
+                    <div class="box-1a-1"><span><%=kupci[i].ime%></span></div>
+                    <div class="box-1a-1"><span><%=kupci[i].prezime%></span></div>
+                    <div class="box-1a-1"><span><%=kupci[i].username%></span></div>
+                    <div class="box-1a-1"><span><%=kupci[i].email%></span></div>
+                    <div class="box-1a-1"><span> <button type="button" class="btn btn-warning" onclick="blokiraj2('<%=kupci[i].id_kupca%>')">Blokiraj</button></span></div>
+                    <div class="box-1a-1"><span> <button type="button" class="btn btn-danger" onclick="obrisi2('<%=kupci[i].id_kupca%>')">Arhivraj</button></span></div>
+                </div>
+                <%}%>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>
+
+
+<!--h1> TRGOVCI</h1>
+<table class="table">
+    <thead>
+
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Naziv trgovine</th>
+        <th scope="col">Kategorija</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+        <th scope="col">Kontakt telefon</th>
+        <th scope="col">Grad</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%for(let i=0;i<trgovine.length;i++){%>
+    <tr>
+        <th scope="row"><//%=i+1%//></th>
+        <td><%=trgovine[i].naziv%></td>
+        <td></%=trgovine[i].kategorija%/></td>
+        <td></%=trgovine[i].username%/></td>
+        <td></%=trgovine[i].email%/></td>
+        <td></%=trgovine[i].telefon%/></td>
+        <td></%=trgovine[i].grad%/></td>
+        <td><button type="button" class="btn btn-warning" onclick="blokiraj1('</%=trgovine[i].id_trgovine%/>')">Blokiraj</button></td>
+        <td><button type="button" class="btn btn-danger" onclick="obrisi1('</%=trgovine[i].id_trgovine%/>')">Arhivraj</button></td>
+
+    </tr>
+    <%}%>
+
+
+    </tbody>
+</table>
+
+<h1> KUPCI</h1>
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col">Ime kupca</th>
+        <th scope="col">Prezime kupca</th>
+        <th scope="col">Username</th>
+        <th scope="col">Email</th>
+    </tr>
+    </thead>
+    <tbody>
+    <%for(let i=0;i<kupci.length;i++){%>
+    <tr>
+        <th scope="row"><%=i+1%></th>
+        <td><%=kupci[i].ime%></td>
+        <td><%=kupci[i].prezime%></td>
+        <td><%=kupci[i].username%></td>
+        <td><%=kupci[i].email%></td>
+        <td><button type="button" class="btn btn-warning" onclick="blokiraj2('<%=kupci[i].id_kupca%>')">Blokiraj</button></td>
+        <td><button type="button" class="btn btn-danger" onclick="obrisi2('<%=kupci[i].id_kupca%>')">Arhivraj</button></td>
+    </tr>
+    <%}%>
+
+
+    </tbody>
+</table>-->

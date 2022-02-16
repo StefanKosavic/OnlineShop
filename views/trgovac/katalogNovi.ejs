@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title><%=naziv%></title>
+    <link rel='stylesheet' href='/stylesheets/trgovacKatalog.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function sortiraj(){
+            let sortiraj = document.getElementById("opcijaSorta").value;
+            console.log("OVO JE Vrijednost" +sortiraj);
+            $.ajax({
+                url:"/trgovac/katalog/" + sortiraj,
+                data:{},
+                type:"get",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                console.log(data);
+                window.location.href="/trgovac/katalog/" + sortiraj;
+            });
+        }
+
+        function posebanArtikal(id){
+            $.ajax({
+                url:"/trgovac/katalog/artikal/" + id,
+                data:{},
+                type:"get",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.href="/trgovac/katalog/artikal/" + id;
+            });
+
+        }
+    </script>
+
+</head>
+<body class="vintageCover">
+<ul class="topnav">
+    <li><a href="/trgovac/urediPodatke">Pocetna</a></li>
+    <li><a href="/trgovac/artikli">Artikli</a></li>
+    <li><a class="active" href="/trgovac/katalog">Katalog</a></li>
+    <li><a href="/trgovac/narudzbe">Narudzbe</a></li>
+    <li class="right"><a href="/welcome">Log out</a></li>
+</ul>
+
+<div class="container">
+    <div class="artikal-naslov">
+        <h3>Katalog proizvoda za <%=naziv%></h3>
+    </div>
+    <div class="aritkal">
+        <form class="form-inline">
+            <label class="my-1 mr-2" for="inlineFormCustomSelectPref">Sortiraj po:</label>
+            <select class="custom-select my-1 mr-sm-2" id="opcijaSorta">
+                <option value="naziv">Nazivu</option>
+                <option value="cijena">Cijeni</option>
+                <option value="kategorija">Kategoriji</option>
+            </select>
+
+            <div class="custom-control custom-checkbox my-1 mr-sm-2">
+                <input type="checkbox" class="custom-control-input" id="customControlInline">
+            </div>
+
+            <button type="submit" class="btn btn-light my-1" onclick="sortiraj()">Sortiraj</button>
+        </form>
+    </div>
+    <%for(let i=0;i<artikli.length;i++){
+    if(artikli[i].izdvojen=='true'){%>
+    <div class="artikal-izdvojen" onclick="posebanArtikal('<%=artikli[i].id_artikla%>')" style="cursor: pointer;">
+        <div class="element-slika"><img src="/images/<%=artikli[i].slika%>"></div>
+        <div class="element"><span class="margina"><%=artikli[i].naziv%></span></div>
+        <div class="element"><span><%=artikli[i].opis%></span></div>
+        <div class="element"><span><%=artikli[i].kategorija%></span></div>
+        <div class="element"><span><%=artikli[i].cijena%></span></div>
+    </div>
+    <%}else{%>
+    <div class="artikal" onclick="posebanArtikal('<%=artikli[i].id_artikla%>')" style="cursor: pointer;">
+        <div class="element-slika"><img src="/images/<%=artikli[i].slika%>"></div>
+        <div class="element"><span><%=artikli[i].naziv%></span></div>
+        <div class="element"><span><%=artikli[i].opis%></span></div>
+        <div class="element"><span><%=artikli[i].kategorija%></span></div>
+        <div class="element"><span><%=artikli[i].cijena%></span></div>
+    </div>
+
+    <%}%>
+    <%}%>
+</div>
+
+
+</body>
+</html>
+
+

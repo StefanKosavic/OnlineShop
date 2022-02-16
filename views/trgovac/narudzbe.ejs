@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Puk.ba</title>
+    <link rel='stylesheet' href='/stylesheets/kupacSearchArtikal.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function prihvatiNarudzbu(id_narudzbe,email){
+            $.ajax({
+                url:"/trgovac/prihvatiNarudzbu/" + id_narudzbe +"/" + email,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+
+        function odbijNarudzbu(id_narudzbe,email){
+            $.ajax({
+                url:"/trgovac/odbijNarudzbu/" + id_narudzbe +"/" + email,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+
+        function isporuciNarudzbu(id_narudzbe,email){
+            $.ajax({
+                url:"/trgovac/isporuciNarudzbu/" + id_narudzbe +"/" + email,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+        }
+
+        function posebniArtikli(id_narudzbe){
+            $.ajax({
+                url:"/trgovac/narudzbe/posebniArtikli/" + id_narudzbe,
+                data:{},
+                type:"get",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.href="/trgovac/narudzbe/posebniArtikli/" + id_narudzbe;
+            });
+        }
+    </script>
+
+</head>
+
+<body class="vintageCover">
+<ul class="topnav">
+    <li><a  href="/trgovac/urediPodatke">Pocetna</a></li>
+    <li><a href="/trgovac/artikli">Artikli</a></li>
+    <li><a href="/trgovac/katalog">Katalog</a></li>
+    <li><a class="active" href="/trgovac/narudzbe">Narudzbe</a></li>
+    <li class="right"><a href="/welcome">Log out</a></li>
+</ul>
+<div class="container">
+    <div class="artikal-naslov">
+        <h3>Trenutno imate <%=narudzbe.length%> narudzbi</h3>
+    </div>
+    <%for(let i=0;i<narudzbe.length;i++){%>
+    <div class="artikal-trgovina"  onclick="posebniArtikli('<%=narudzbe[i].id_narudzbe%>')" style="cursor: pointer;">
+        <div class="element-slika-kupac"><img src="/images/<%=narudzbe[i].slika%>"></div>
+        <div class="element"><span><%=narudzbe[i].ime%></span></div>
+        <div class="element"><span><%=narudzbe[i].prezime%></span></div>
+        <div class="element"><span><%=narudzbe[i].email%></span></div>
+        <%if(narudzbe[i].status=="na cekanju"){%>
+            <div class="element"><button type="button" class="btn-potvrdi" onclick="prihvatiNarudzbu('<%=narudzbe[i].id_narudzbe%>','<%=narudzbe[i].email%>')">Prihvati</button></div>
+            <div class="element"><button type="button" class="btn-delete" onclick="odbijNarudzbu('<%=narudzbe[i].id_narudzbe%>','<%=narudzbe[i].email%>')">Odbij</button></div>
+        <%}if(narudzbe[i].status=="prihvacena"){%>
+            <div class="element"><button type="button" class="btn-prihvati" onclick="isporuciNarudzbu('<%=narudzbe[i].id_narudzbe%>','<%=narudzbe[i].email%>')">Isporuci</button></div>
+        <%}if(narudzbe[i].status=="isporucena"){%>
+            <div class="element"><span>Isporucena</span></div>
+        <%}if(narudzbe[i].status=="odbijena"){%>
+            <div class="element"><span>Odbijena</span></div>
+        <%}if(narudzbe[i].status=="otkazana"){%>
+            <div class="element"><span>Otkazana</span></div>
+        <%}%>
+    </div>
+    <%}%>
+</div>
+
+
+</body>
+
+
+</html>
+
+
+
+
+
+
+

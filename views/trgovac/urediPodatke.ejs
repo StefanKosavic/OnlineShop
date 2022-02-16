@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Old penny</title>
+    <link rel='stylesheet' href='/stylesheets/trgovacUrediPodatke.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+    <script>
+        function urediPodatke(id) {
+            naziv = document.getElementById("naziv").value;
+            email = document.getElementById("email").value;
+            adresa = document.getElementById("adresa").value;
+            adresa_gl = document.getElementById("adresa_gl").value;
+            grad = document.getElementById("grad").value;
+            telefon = document.getElementById("telefon").value;
+
+            $.ajax({
+                url:"/trgovac/podaci/" + naziv + "/" + email + "/" + adresa + "/" + adresa_gl + "/" + grad + "/" + telefon  + "/" + id,
+                data:{},
+                type:"POST",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.reload();
+            });
+
+        }
+    </script>
+
+
+</head>
+
+
+<body  class="vintageCover">
+<ul class="topnav">
+    <li><a class="active" href="/trgovac/urediPodatke">Pocetna</a></li>
+    <li><a href="/trgovac/artikli">Artikli</a></li>
+    <li><a href="/trgovac/katalog">Katalog</a></li>
+    <li><a href="/trgovac/narudzbe">Narudzbe</a></li>
+    <li class="right"><a href="/welcome">Log out</a></li>
+</ul>
+
+
+<div class="container-1">
+    <h3> Uredi podatke za <%=trgovina[0].naziv%></h3>
+    <form>
+        <div class="form-row">
+             <img class="slika-ogranicenje" src="../images/<%=trgovina[0].slika%>">
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label>Naziv trgovine</label>
+                <input type="text" class="form-control" id="naziv" value="<%=trgovina[0].naziv%>">
+            </div>
+            <div class="form-group col-md-6">
+                <label>Email</label>
+                <input type="email" class="form-control" id="email" value="<%=trgovina[0].email%>">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">Adresa</label>
+                <input type="text" class="form-control" id="adresa" value="<%=trgovina[0].adresa%>">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCity">Adresa glavne poslovnice</label>
+                <input type="text" class="form-control" id="adresa_gl" value="<%=trgovina[0].adresa_gl%>">
+            </div>
+        </div>
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label for="inputCity">Grad</label>
+                <input type="text" class="form-control" id="grad" value="<%=trgovina[0].grad%>">
+            </div>
+            <div class="form-group col-md-6">
+                <label for="inputCity">Telefon</label>
+                <input type="number" class="form-control" id="telefon" value="<%=trgovina[0].telefon%>">
+            </div>
+        </div>
+
+        <button type="submit" class="btn btn-light" onclick="urediPodatke('<%=trgovina[0].id_trgovine%>')">Uredi podatke</button>
+    </form>
+
+</div>
+
+
+</body>
+</html>

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Greska</title>
+    <link rel='stylesheet' href='/stylesheets/trgovacKatalog.css' />
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script>
+        function vratiNaRegister(){
+            $.ajax({
+                url:"/trgovac/register/",
+                data:{},
+                type:"get",
+                beforeSend: function (){
+                }
+            }).done(function (data){
+                window.location.href="/trgovac/register/";
+            });
+        }
+
+    </script>
+
+
+</head>
+<body class="vintageCover">
+
+<div class="container-greska">
+    <div class="artikal-naslov">
+        <h1><%=poruka%>!</h1>
+    </div>
+    <div class="artikal-greska">
+        <img class="slika-greske" src="../images/brod.jpg" height="70px" width="100px">
+    </div>
+    <div class="artikal-greska">
+        <button type="button" class="btn-greska" onclick="vratiNaRegister()">Povratak na register</button>
+    </div>
+
+</div>
+
+
+</body>
+</html>
+

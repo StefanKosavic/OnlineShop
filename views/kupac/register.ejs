@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Registracija za trgovca</title>
+    <link rel='stylesheet' href='/stylesheets/register.css' />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+</head>
+<body class="vintageCover">
+<div class="container-1">
+    <div class="box-1">
+        <h1>Registrujte se i zapocnite kupovinu</h1>
+    </div>
+    <form method="post" action="/kupac/register" enctype="multipart/form-data">
+        <div class="box-2R">
+            <div class="box-2-1">
+                <div class="marginica"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+                <div class="marginica"><input class="form-control" type="text" name="username" placeholder="Username"></div>
+                <div class="marginica"><input class="form-control" type="password" name="sifra" placeholder="Sifra"></div>
+                <div class="marginica"><input class="form-control" type="text" name="ime" placeholder="Ime"></div>
+            </div>
+            <div class="box-2-1">
+                <div class="marginicaR"><input class="form-control" type="text" name="prezime" placeholder="Prezime"></div>
+                <div class="marginicaR">
+                    <select class="custom-select mr-sm-2" name="kategorija">
+                        <%for(let j=0;j<kategorije.length;j++){%>
+                        <option><%= kategorije[j].naziv%></option>
+                        <%}%>
+                    </select>
+                </div>
+                <div class="marginicaR"><input name="sampleFile" type="file" accept="image/*"/></div>
+                <div class="marginicaR"><button class="btn btn-primary btn-block" type="submit">Registruj se</button>
+                </div><a href="login" class="already">Imate account? Login!</a>
+            </div>
+        </div>
+    </form>
+</div>
+</body>
+</html>
+
+
+<!--
+<div class="register-photo">
+    <div class="form-container">
+        <div class="image-holder"></div>
+        <form method="post" action="/kupac/register">
+            <h2 class="text-center">Dobro dosli na Puk.ba - Kreirajte svoju novu trgovinu</h2>
+            <div class="form-group"><input class="form-control" type="email" name="email" placeholder="Email"></div>
+            <div class="form-group"><input class="form-control" type="text" name="username" placeholder="Username"></div>
+            <div class="form-group"><input class="form-control" type="password" name="sifra" placeholder="Sifra"></div>
+            <div class="form-group"><input class="form-control" type="text" name="ime" placeholder="Ime"></div>
+            <div class="form-group"><input class="form-control" type="text" name="prezime" placeholder="Prezime"></div>
+            <select class="custom-select mr-sm-2" name="kategorija">
+                <//%//for(let j=0;j<kategorije.length;j++){%//>
+                <option><//%= kategorije[j]//.naziv%//></option>
+                //<//%//}%//>
+            </select>
+            <div class="form-group"><button class="btn btn-primary btn-block" type="submit">Registruj se</button></div><a href="login" class="already">Vec imate registrovanu trgovinu? Prijavite se.</a>
+        </form>
+    </div>
+</div>-->

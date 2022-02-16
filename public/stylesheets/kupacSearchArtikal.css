@@ -1,0 +1,186 @@
+body {
+    font-family: "Times New Roman", Georgia, serif;
+}
+
+a {
+    color: #00B7FF;
+}
+
+.vintageCover{
+    background-image: url("../images/strana.jpg");
+}
+.container{
+     display: flex;
+     flex-direction: column;
+     margin: 2% 7% !important;
+     background-image: url("../images/vintageBACK.jpg");
+     border: 1px solid black;
+     border-radius: 20px;
+     filter: drop-shadow(0px 9px 5px black);
+ }
+.container-trgovina{
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 2% 7% !important;
+    background-image: url("../images/vintageBACK.jpg");
+    border: 1px solid black;
+    border-radius: 20px;
+    filter: drop-shadow(0px 9px 5px black);
+}
+.artikal-naslov{
+    margin: 1.5%;
+    text-align: center;
+}
+.artikal{
+    display: flex;
+    flex-direction: row;
+    margin: 1.5%;
+    border: 1.1px solid black;
+    border-radius: 10px;
+}
+.artikal-trgovina{
+    background: antiquewhite;
+    display: flex;
+    flex-direction: row;
+    margin: 1.5%;
+    border: 1.1px solid black;
+    border-radius: 10px;
+}
+.artikal-izdvojen{
+    display: flex;
+    flex-direction: row;
+    margin: 1.5%;
+    border: 3px outset;
+    border-radius: 10px;
+    background-color: #D4AF37;
+    color: white;
+    filter: drop-shadow(0px 8px 4px black);
+}
+.element-slika{
+    flex: 1.35;
+    margin: 1%;
+}
+.element{
+    text-align: center;
+    flex: 1;
+    margin: 5% 1% 1% 1%;
+}
+
+img{
+    height: 100%;
+    width: 100%;
+}
+.btn-delete{
+    background-color: #b33f31;
+    border: none;
+    color: white;
+    padding: 3% 9%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 3% 1% 1% 1%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.btn-potvrdi{
+    background-color: #D4AF37;
+    border: none;
+    color: white;
+    padding: 3% 9%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 3% 0% 1% 65%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.btn-prihvati{
+    background-color: #966e4f;
+    border: none;
+    color: white;
+    padding: 3% 9%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 3% 1% 1% 1%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.btn-otkazi{
+    background-color: #966e4f;
+    border: none;
+    color: white;
+    padding: 3% 9%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 3% 1% 1% 1%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.btn-naruci{
+    background-color: #b33f31;
+    border: none;
+    color: white;
+    padding: 1% 7%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 1%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.btn-izbaciIzKorpe{
+    background-color: #95642a;
+    border: none;
+    color: white;
+    padding: 2% 9%;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 14px;
+    margin: 3% 1% 1% 1%;
+    cursor: pointer;
+    border-radius: 4px;
+}
+.element-slika-kupac {
+    width: 130px !important;
+    height: 105px !important;
+    margin: 1% 1% 1% 2% ;
+}
+
+ul.topnav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+    background-color: #333333;
+    filter: drop-shadow(0px 4px 2px black);
+}
+
+ul.topnav li {float: left;}
+
+ul.topnav li a {
+    display: block;
+    color: white;
+    text-align: center;
+    padding: 6px 9px;
+    text-decoration: none;
+}
+
+ul.topnav li a:hover:not(.active) {background-color: #d6b261;}
+
+ul.topnav li a.active {background-color: #d6b261;}
+
+ul.topnav li.right {float: right;}
+
+@media screen and (max-width: 600px) {
+    ul.topnav li.right,
+    ul.topnav li {float: none;}
+}

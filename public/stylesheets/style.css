@@ -1,0 +1,79 @@
+body {
+  font-family: "Times New Roman", Georgia, serif;
+}
+
+a {
+  color: #00B7FF;
+}
+.slikaSaStrane{
+  display: block;
+  height: 100vh;
+  width: 100%;
+}
+.vintageCover{
+  background-image: url("../images/vintageBACK.jpg");
+}
+.container-1{
+  display: flex;
+}
+.container-2{
+  display: flex;
+  flex-direction: column;
+}
+
+.box-1{
+  flex:1;
+  height: 100vh;
+  background-color: #00B7FF;
+
+}
+.box-2{
+  flex:3;
+  background-color: #d6b261;
+  filter: drop-shadow(0px 8px 8px black);
+}
+.box-2-1{
+  margin: 3% 20%;
+  flex: 1;
+  border-radius: 20px;
+}
+.box-2-2{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  margin: 0% 20%;
+  flex: 6;
+}
+.box-2-3{
+  margin: 3% 20%;
+  flex:1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.box-3{
+  flex:1;
+  background-color: #00B7FF;
+}
+.logoSlika{
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+}
+.oldSHOP{
+  height: 100%;
+  width: 100%;
+  border-radius: 20px;
+  border: 1px solid #95642a;
+  filter: drop-shadow(0px 12px 6px black);
+}
+.btn-default{
+  background-color: #95642a;
+  color:black;
+  border-radius: 4px;
+  height: 75%;
+  width: 100%;
+  cursor: pointer;
+}
